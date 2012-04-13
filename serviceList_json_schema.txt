@@ -1,0 +1,54 @@
+
+"serviceList":{
+	"type": "array",
+	"items":{
+		"type": "object",
+		"properties":{
+			"description":{"type":"string"}, //해당  Mash-up Service 개요
+			"triggers":{	//특정 event가 발생하면 알려주는 서비스에 대한 설명
+				"type": "array",
+				"items":{
+					"type":"object",
+					"properties":{
+						"description":{"type":"string"}, //개별 trigger에 대한 설명
+						"uri":{"type":"string"}, //api uri
+						"arguments":{
+							"type": "array",
+							"items":{
+								"type": "object",
+								"key":{"type":"string"}, //argument로 넘길 구별자 
+								"description":{"type":"string"}, //위 argument에 대한 설명
+							}
+						}
+					}
+				}
+			} //: end of triggers
+			
+			"actions":{		//사용자가 선택할수 있는 control 서비스에 대한 설명
+				"type": "array",
+				"items":{
+					"type":"object",
+					"properties":{
+						"description":{"type":"string"}, //개별 action 에 대한 설명
+						"uri":{"type":"string"}, //api uri
+						"arguments":{
+							"type": "array",
+							"items":{
+								"type": "object",
+								"key":{"type":"string"}, //argument로 넘길 구별자 
+								"description":{"type":"string"}, //위 argument에 대한 설명
+							}
+						}
+					}
+			} //: end of actions
+		
+		}
+		
+	
+	}
+}
+
+ex>
+[
+{"description":
+]
