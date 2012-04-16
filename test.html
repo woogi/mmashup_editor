@@ -7,6 +7,7 @@
 		<meta name="author" content="Administrator" />
 		<!-- Date: 2012-04-10 -->
 		<script src="knockout-latest.js"></script>
+		<script src="json2.js"></script>
 	</head>
 	<body>
 		<h2>Participants</h2>
@@ -25,6 +26,78 @@
 		         this.people=[this.buyer,this.seller];
 		     }
 		     ko.applyBindings(new MyViewModel());        
+		     
+		     /*
+		     var testObj=JSON.parse('[\
+			{"title":"복합센서",																					\
+			 "triggers":[																							\
+			 			{	"description":"온도감지" ,																\
+			 				"uri":"meter/thermometer/temp/",														\
+			 				"arguments":[ {"key":"30C>=","description":"섭씨 30도 이상 일때 알림"},					\
+			 							  {"key":"20C>=","description":"섭씨 20도 이상 일때 알림"},					\
+			 							  {"key":"10C>=","description":"섭씨 10도 이상 일때 알림"},					\
+			 							  {"key":"0C>=","description":"섭씨 0도 이상 일때 알림"},						\
+			 							  {"key":"0C<","description":"섭씨 0도 미만 일때 알림"},						\
+			 							  {"key":"-10C<","description":"섭씨 영하10도 미만 일때 알림"},				\
+			 							]																			\
+			 			},																							\
+			 			{	"description":"습도감지" ,																\
+			 				"uri":"meter/hygrometer/humidity/",														\
+			 				"arguments":[ 																			\
+			 							  {"key":"50%>=","description":"습도50% 이상 일때 알림"},						\
+			 							  {"key":"40%>=","description":"습도40% 이상 일때 알림"},						\
+			 							  {"key":"30%>=","description":"습도30% 이상 일때 알림"},						\	
+			 							  {"key":"20%>=","description":"습도 20% 이상 일때 알림"},					\
+			 							  {"key":"10%>=","description":"습도 10% 이상 일때 알림"},					\
+			 							]																			\		
+			 			},																							\
+			 ],																										\																																					
+			 },																										\
+			 																										\
+			{"title":"난방 controller",																				\	
+			 "actions":[																							\
+			 			{	"description":"난방 온도 제어" ,															\		
+			 				"uri"value_name:	,																	\
+			 				"arguments":[ 																			\	
+			 							  {"key":"27C","description":"희망 온도를 섭씨 27도로 조정"},					\
+			 							  {"key":"25C>=","description":"희망 온도를 섭씨 25도로 조정"},				\
+			 							  {"key":"20C>=","description":"희망 온도를 섭씨 20도로 조정"},				\
+			 							]																			\
+						},																							\
+			 			{	"description":"난방 전원 제어" ,															\
+			 				"uri":"controller/heater/power/",														\
+			 				"arguments":[ 																			\
+			 							  {"key":"on","description":"난방 전원 켜기"},								\	
+			 							  {"key":"off","description":"난방 전원 끄기"},								\
+			 							]																			\
+						},																							\
+			 																										\
+			 ]																										\	
+			},																										\
+			]');
+			*/
+				
+			function onInitFs(fs) {
+
+  				fs.root.getFile('log.txt', {}, function(fileEntry) {
+
+    					// Get a File object representing the file,
+    					// then use FileReader to read its contents.
+    					fileEntry.file(function(file) {
+       							var reader = new FileReader();
+       							reader.onloadend = function(e) {
+         						var txtArea = document.createElement('textarea');
+         						txtArea.value = this.result;
+         						document.body.appendChild(txtArea);
+       					};
+
+       			reader.readAsText(file);}, errorHandler);}, errorHandler);
+
+		}
+		
+		function errorHandler(){};
+
+		window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
 		</script>
 	</body>
 	</html>

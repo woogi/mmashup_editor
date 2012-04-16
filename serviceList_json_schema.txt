@@ -4,42 +4,48 @@
 	"items":{
 		"type": "object",
 		"properties":{
-			"description":{"type":"string"}, //해당  Mash-up Service 개요
-			"triggers":{	//특정 event가 발생하면 알려주는 서비스에 대한 설명
+			"title":{"type":"string"}, 									//  Mash-up Service 제목 
+			"triggers":{												//특정 event가 발생시 알려주는 trigger에 대한 설명
 				"type": "array",
 				"items":{
 					"type":"object",
 					"properties":{
-						"description":{"type":"string"}, //개별 trigger에 대한 설명
+						"description":{"type":"string"}, 				//개별 trigger에 대한 설명
 						"uri":{"type":"string"}, //api uri
 						"arguments":{
 							"type": "array",
 							"items":{
 								"type": "object",
-								"key":{"type":"string"}, //argument로 넘길 구별자 
-								"description":{"type":"string"}, //위 argument에 대한 설명
+								"properties":{
+									"key":{"type":"string"}, 			//argument로 사용할 구별자 
+									"description":{"type":"string"}, 	//위 argument에 대한 설명
+								}
 							}
 						}
 					}
-				}
+				},
+				"optional":"true"
 			} //: end of triggers
 			
-			"actions":{		//사용자가 선택할수 있는 control 서비스에 대한 설명
+			"actions":{													//M2M device 제어 action에 대한 설명
 				"type": "array",
 				"items":{
 					"type":"object",
 					"properties":{
-						"description":{"type":"string"}, //개별 action 에 대한 설명
+						"description":{"type":"string"}, 				//개별 action 에 대한 설명
 						"uri":{"type":"string"}, //api uri
 						"arguments":{
 							"type": "array",
 							"items":{
 								"type": "object",
-								"key":{"type":"string"}, //argument로 넘길 구별자 
-								"description":{"type":"string"}, //위 argument에 대한 설명
+								"properties":{
+									"key":{"type":"string"}, 			//argument로 넘길 구별자 
+									"description":{"type":"string"}, 	//위 argument에 대한 설명
+								}
 							}
 						}
-					}
+					},
+				"optional":"true"
 			} //: end of actions
 		
 		}
@@ -48,7 +54,87 @@
 	}
 }
 
-ex>
+
+taskDescription:{
+	"title":{"type":"string"},
+	"recipes":{	"type":"array",
+				"items":{
+					"type": "object",
+					"properties":{
+						"description":{"type":"string"},
+						"trigger_uri":{"type":"string"},
+						"trigger_arg":{"type":"string"},
+						"action_uri":{"type":"string"},
+						"action_arg":{"type":"string"},
+					}
+				}
+	}
+}
+
+
+e.g.>
 [
-{"description":
+	{"title":"복합센서",
+	 "triggers":[
+	 			{	"description":"온도감지" ,
+	 				"uri":"meter/thermometer/temp/",
+	 				"arguments":[ {"key":"30C>=","description":"섭씨 30도 이상 일때 알림"},
+	 							  {"key":"20C>=","description":"섭씨 20도 이상 일때 알림"},
+	 							  {"key":"10C>=","description":"섭씨 10도 이상 일때 알림"},
+	 							  {"key":"0C>=","description":"섭씨 0도 이상 일때 알림"},
+	 							  {"key":"0C<","description":"섭씨 0도 미만 일때 알림"},
+	 							  {"key":"-10C<","description":"섭씨 영하10도 미만 일때 알림"},
+	 							]
+	 			},
+	 			{	"description":"습도감지" ,
+	 				"uri":"meter/hygrometer/humidity/",
+	 				"arguments":[ 
+	 							  {"key":"50%>=","description":"습도50% 이상 일때 알림"},
+	 							  {"key":"40%>=","description":"습도40% 이상 일때 알림"},
+	 							  {"key":"30%>=","description":"습도30% 이상 일때 알림"},
+	 							  {"key":"20%>=","description":"습도 20% 이상 일때 알림"},
+	 							  {"key":"10%>=","description":"습도 10% 이상 일때 알림"},
+	 							]
+	 			},
+	 ],
+	 },
+	 
+	{"title":"난방 controller",
+	 "actions":[
+	 			{	"description":"난방 온도 제어" ,
+	 				"uri":,
+	 				"arguments":[ 
+	 							  {"key":"27C","description":"희망 온도를 섭씨 27도로 조정"},
+	 							  {"key":"25C>=","description":"희망 온도를 섭씨 25도로 조정"},
+	 							  {"key":"20C>=","description":"희망 온도를 섭씨 20도로 조정"},
+	 							]
+				},
+	 			{	"description":"난방 전원 제어" ,
+	 				"uri":"controller/heater/power/",
+	 				"arguments":[ 
+	 							  {"key":"on","description":"난방 전원 켜기"},
+	 							  {"key":"off","description":"난방 전원 끄기"},
+	 							]
+				},
+	 							
+	 ]
+	},
 ]
+
+{
+	"title":"아기방 쾌적한 환경 만들기",
+	"recipes":[
+		{"description":"습도 맞추기" 
+		"trigger_uri":"meter/hygrometer/humidity/",
+		"trigger_arg":"50%>="
+		"action_uri":"controller/heater/temp/"
+		"action_arg":"27C"
+		},
+		{"description":"온도 맞추기" 
+		"trigger_uri":"meter/themometer/temp/",
+		"trigger_arg":"30C>="
+		"action_uri":"controller/heater/temp/"
+		"action_arg":"23C"
+		},
+	]
+}
