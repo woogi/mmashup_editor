@@ -20,6 +20,7 @@
 		</script>
 		 
 		<script type="text/javascript">
+		   //<![CDATA[
 		     function MyViewModel() {
 		         this.buyer = { name: 'Franklin', credits: 2500 };
 		         this.seller = { name: 'Mario', credits: 5800 };     
@@ -27,56 +28,58 @@
 		     }
 		     ko.applyBindings(new MyViewModel());        
 		     
-		     /*
-		     var testObj=JSON.parse('[\
-			{"title":"º¹ÇÕ¼¾¼­",																					\
-			 "triggers":[																							\
-			 			{	"description":"¿Âµµ°¨Áö" ,																\
-			 				"uri":"meter/thermometer/temp/",														\
-			 				"arguments":[ {"key":"30C>=","description":"¼·¾¾ 30µµ ÀÌ»ó ÀÏ¶§ ¾Ë¸²"},					\
-			 							  {"key":"20C>=","description":"¼·¾¾ 20µµ ÀÌ»ó ÀÏ¶§ ¾Ë¸²"},					\
-			 							  {"key":"10C>=","description":"¼·¾¾ 10µµ ÀÌ»ó ÀÏ¶§ ¾Ë¸²"},					\
-			 							  {"key":"0C>=","description":"¼·¾¾ 0µµ ÀÌ»ó ÀÏ¶§ ¾Ë¸²"},						\
-			 							  {"key":"0C<","description":"¼·¾¾ 0µµ ¹Ì¸¸ ÀÏ¶§ ¾Ë¸²"},						\
-			 							  {"key":"-10C<","description":"¼·¾¾ ¿µÇÏ10µµ ¹Ì¸¸ ÀÏ¶§ ¾Ë¸²"},				\
-			 							]																			\
-			 			},																							\
-			 			{	"description":"½Àµµ°¨Áö" ,																\
-			 				"uri":"meter/hygrometer/humidity/",														\
-			 				"arguments":[ 																			\
-			 							  {"key":"50%>=","description":"½Àµµ50% ÀÌ»ó ÀÏ¶§ ¾Ë¸²"},						\
-			 							  {"key":"40%>=","description":"½Àµµ40% ÀÌ»ó ÀÏ¶§ ¾Ë¸²"},						\
-			 							  {"key":"30%>=","description":"½Àµµ30% ÀÌ»ó ÀÏ¶§ ¾Ë¸²"},						\	
-			 							  {"key":"20%>=","description":"½Àµµ 20% ÀÌ»ó ÀÏ¶§ ¾Ë¸²"},					\
-			 							  {"key":"10%>=","description":"½Àµµ 10% ÀÌ»ó ÀÏ¶§ ¾Ë¸²"},					\
-			 							]																			\		
-			 			},																							\
-			 ],																										\																																					
-			 },																										\
-			 																										\
-			{"title":"³­¹æ controller",																				\	
-			 "actions":[																							\
-			 			{	"description":"³­¹æ ¿Âµµ Á¦¾î" ,															\		
-			 				"uri"value_name:	,																	\
-			 				"arguments":[ 																			\	
-			 							  {"key":"27C","description":"Èñ¸Á ¿Âµµ¸¦ ¼·¾¾ 27µµ·Î Á¶Á¤"},					\
-			 							  {"key":"25C>=","description":"Èñ¸Á ¿Âµµ¸¦ ¼·¾¾ 25µµ·Î Á¶Á¤"},				\
-			 							  {"key":"20C>=","description":"Èñ¸Á ¿Âµµ¸¦ ¼·¾¾ 20µµ·Î Á¶Á¤"},				\
-			 							]																			\
-						},																							\
-			 			{	"description":"³­¹æ Àü¿ø Á¦¾î" ,															\
-			 				"uri":"controller/heater/power/",														\
-			 				"arguments":[ 																			\
-			 							  {"key":"on","description":"³­¹æ Àü¿ø ÄÑ±â"},								\	
-			 							  {"key":"off","description":"³­¹æ Àü¿ø ²ô±â"},								\
-			 							]																			\
-						},																							\
-			 																										\
-			 ]																										\	
-			},																										\
-			]');
-			*/
-				
+		   	
+		     var testObj=JSON.parse('[ {"title":"xxx",\
+		     							"triggers":[\
+		     							{"description":"xxx",\
+		     							"uri":"meter/thermometer/temp/",\
+		     							"arguments":[ {"key":"30C>=","description":"30"},\
+		     										{"key":"20C>=","description":"20"},\
+		     										{"key":"10C>=","description":"10"},\
+		     										{"key":"0C>=","description":"0"},\
+		     										{"key":"0C<","description":"0"},\
+		     										{"key":"-10C<","description":"10"}\
+		     										]\
+		     							},\
+		     							{"description":"xxx",\
+		     							"uri":"meter/hygrometer/humidity/",\
+		     							"arguments":[ {"key":"50%>=","description":"50%"},\
+		     										{"key":"40%>=","description":"40%"},\
+		     										{"key":"30%>=","description":"30%"},\			 							  {"key":"20%>=","description":"ï¿½ï¿½ï¿½ï¿½ 20% ï¿½Ì»ï¿½ ï¿½Ï¶ï¿½ ï¿½Ë¸ï¿½"},\
+				 							  		{"key":"10%>=","description":"10%"}\
+				 							]\
+				 						}\
+			 						]\
+			 						},\
+			 						{	"title":"controller",\
+							 			"actions":[\
+							 			{"description":"xxx" , \
+							 			"uri": "meter/themometer/temp/"	,\
+							 			"arguments":[{"key":"27C","description":"27"},	\
+							 						{"key":"25C>=","description":"25"},\
+							 						{"key":"20C>=","description":"0"}\
+							 						]\
+										},\
+							 			{"description":"xxx" ,	\
+							 			"uri":"controller/heater/power/",\
+							 			"arguments":[\
+							 						{"key":"on","description":""},\
+							 						{"key":"off","description":""}\
+							 						]\
+										}\
+									]\
+									}\
+								]' );
+
+/*
+ * 
+ * it works on crome only that below
+ */				
+ 
+ /*
+				 																										\
+									
+
 			function onInitFs(fs) {
 
   				fs.root.getFile('log.txt', {}, function(fileEntry) {
@@ -98,6 +101,8 @@
 		function errorHandler(){};
 
 		window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
+*/
+//]]>
 		</script>
 	</body>
 	</html>
