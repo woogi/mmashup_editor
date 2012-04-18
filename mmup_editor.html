@@ -16,13 +16,13 @@
 		
 		<style type='text/css'>        	
 	    .editor th { text-align: left }
-	    .editor .grandTotal { border-top: 1px solid silver; padding-top: 0.5em; font-size: 1.2em; }
-	    .editor .grandTotal SPAN { font-weight: bold; }
+	    .editor .lineDelimeter { border-top: 1px solid silver; padding-top: 0.5em; font-size: 1.2em; }
 	    .editor table, .editor td, .editor th { padding: 0.2em; border-width: 0; margin: 0; vertical-align: top; }
 	    .editor td select { width: 8em; }
 	    .editor td.quantity input { width: 4em; }
 	    .editor td select { height: 1.8em; white-space: nowrap; }
 	    .editor tr.taskDesc input {background-color: #DDD;font-size: 1em; border-style:none}
+	    .editor tr.taskDesc td {height: 1.8em;background-color: #DDD;font-size: 1em; border-style:none}
 	    </style>
 	    
 	</head>
@@ -64,10 +64,12 @@
                 <select data-bind='options: arguments, optionsText: "key", optionsCaption: "Select...", value: $parent.commandArg'> </select>
             </td>
             <td>
-                <a href='#' data-bind='click: $parent.removeLine'>삭제</a>
+                <a href='#' data-bind='click: $parent.removeLine '>delete</a>
             </td>
         </tr>
+        
         <tr class="taskDesc">
+        	
         	<td colspan="3"><input data-bind='visible:triggerArg, value:descTriggerArg'/></td>
         	<td colspan="3"><input data-bind='visible:commandArg, value:descCommandArg'/></td>
         	<td></td>
@@ -75,7 +77,7 @@
     </tbody>
 </table>
 
-<p class='grandTotal'>
+<p class='lineDelimeter'>
     
 </p>
 
@@ -101,51 +103,87 @@
 	    self.commandArg = ko.observable();
 	    self.descTriggerArg= ko.observable();
 	    self.descCommandArg= ko.observable();
-	    self.subtotal = ko.computed(function() {
-	        //return self.product() ? self.product().price * parseInt("0" + self.quantity(), 10) : 0;
-	    });
+	    
+	    
+	    //child items should be default value,when a parent category has been changed. 
 	 
 	    self.svc4Trigger.subscribe(function() {
 	        self.trigger(undefined);
 	        self.triggerArg(undefined);
+	       // self.descTriggerArg(undefined);
 	    });
 	    
 	    self.svc4Command.subscribe(function() {
 	        self.command(undefined);
 	        self.commandArg(undefined);
+	        //self.descCommandArg(undefined);
 	    });
 	    
+	 /*
+	    self.command.subscribe(function(){
+	    	
+	    	self.commandArg(undefined);
+	    	//self.descCommandArg(undefined);
+	    	
+	    });
+	    
+	     self.trigger.subscribe(function(){
+	     	
+	     	self.triggerArg(undefined);
+	    	//self.descTriggerArg(undefined);
+	    	
+	    });
+	    */
+	    
+	   
 	    self.triggerArg.subscribe(function(newVal) {
-	    	self.descTriggerArg=newVal.description;
+	    	if(newVal)
+	    	{
+		    	self.descTriggerArg=newVal.description;
+	    	}
+	    	else
+	    	{
+	    		//self.descTriggerArg(undefined);
+	    	}
 	    });
 	    
 	    self.commandArg.subscribe(function(newVal) {
-	    	self.descCommandArg=newVal.description;
+	    	if(newVal)
+	    	{
+		    	self.descCommandArg=newVal.description;
+		    }
+		    else
+		    {
+		    	
+		    	//self.descCommandArg(undefined);
+		    }
 	    });
-	};
+
+	   
+	};//:end of Recipe
 	 
 	var Task = function() {
 	    var self = this;
 	    self.lines = ko.observableArray([new Recipe()]); // Put one line in by default
-	    self.grandTotal = ko.computed(function() {
-	        var total = 0;
-	        $.each(self.lines(), function() { total += this.subtotal() })
-	        return total;
-	    });
-	 
+	    
 	    // Operations
 	    self.addLine = function() { self.lines.push(new Recipe()) };
 	    self.removeLine = function(line) { self.lines.remove(line) };
 	    self.save = function() {
 	        var dataToSave = $.map(self.lines(), function(line) {
-	            return line.product() ? {
-	                productName: line.product().name,
-	                quantity: line.quantity()
+	            return line? {
+	            	trigger_uri:line.trigger().uri,
+	            	trigger_arg:line.triggerArg().key,
+	            	command_uri:line.command().uri,
+	            	command_arg:line.commandArg().key
+	             
 	            } : undefined
 	        });
-	        alert("Could now send this to server: " + JSON.stringify(dataToSave));
+	        
+	        var taskDesc={title:"test!!",recipes:dataToSave};
+	        alert("send this to server: " + JSON.stringify(taskDesc));
 	    };
-	};
+	}; //:end of Task
 	 
 	ko.applyBindings(new Task());    
 			     

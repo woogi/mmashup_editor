@@ -19,12 +19,14 @@
 				 							  		{"key":"10%<=","description":"습도 10% 이상 일때"}\
 				 							]\
 				 						}\
-			 						]\
+			 						],\
+			 						"actions":[]\
 			 						},\
 			 						{	"title":"난방 controller",\
+			 							"triggers":[],\
 							 			"actions":[\
 							 			{"title":"희망 온도 제어" , \
-							 			"uri": "meter/themometer/temp/"	,\
+							 			"uri": "controller/heater/temp/"	,\
 							 			"arguments":[{"key":"27C","description":"27도로조정"},	\
 							 						{"key":"25C","description":"25도로 조정"},\
 							 						{"key":"20C","description":"20도로 조정"}\

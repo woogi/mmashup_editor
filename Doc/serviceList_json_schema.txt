@@ -10,8 +10,8 @@
 				"items":{
 					"type":"object",
 					"properties":{
-						"description":{"type":"string"}, 				//개별 trigger에 대한 설명
-						"uri":{"type":"string"}, //api uri
+						"title":{"type":"string"}, 				//개별 trigger에 대한 설명
+						"uri":{"type":"string"}, 						//api uri
 						"arguments":{
 							"type": "array",
 							"items":{
@@ -24,7 +24,6 @@
 						}
 					}
 				},
-				"optional":"true"
 			} //: end of triggers
 			
 			"actions":{													//M2M device 제어 action에 대한 설명
@@ -32,7 +31,7 @@
 				"items":{
 					"type":"object",
 					"properties":{
-						"description":{"type":"string"}, 				//개별 action 에 대한 설명
+						"title":{"type":"string"}, 						//개별 action 에 대한 설명
 						"uri":{"type":"string"}, //api uri
 						"arguments":{
 							"type": "array",
@@ -45,7 +44,6 @@
 							}
 						}
 					},
-				"optional":"true"
 			} //: end of actions
 		
 		}
