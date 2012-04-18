@@ -4,9 +4,34 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>New Web Project</title>
+        <style>
+        	a.test{font-weight:bold;}
+        </style>
+        <script src="jquery-1.7.2.js"></script>
     </head>
     <body>
         <h1>New Web Project Page</h1>
         <h2> test!! </h2>
+        <a href="http://www.naver.com">naver</a>
+        
+        <select></select>
     </body>
+    
+    <script>
+    $().load( function(){alert('load');});
+    $().ready(
+    	function(){
+    		alert('ready');
+    		$("a").click(function(event){
+    			alert("Thanks for visiting!");
+    			event.preventDefault();
+    			$(this).addClass("test");
+    			//$(this).hide("slow");
+    			
+ 
+    		});
+    	}
+    	
+    	
+    );</script>
 </html>

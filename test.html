@@ -3,107 +3,154 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>test</title>
-		<meta name="author" content="Administrator" />
-		<!-- Date: 2012-04-10 -->
-		<script src="knockout-latest.js"></script>
-		<script src="json2.js"></script>
-	</head>
-	<body>
-		<h2>Participants</h2>
-		Here are the participants:
-		<div data-bind="template: { name: 'person-template', foreach: people }"></div>
-		 
-		<script type="text/html" id="person-template">
-		    <h3 data-bind="text: name"></h3>
-		    <p>Credits: <span data-bind="text: credits"></span></p>
-		</script>
-		 
-		<script type="text/javascript">
-		   //<![CDATA[
-		     function MyViewModel() {
-		         this.buyer = { name: 'Franklin', credits: 2500 };
-		         this.seller = { name: 'Mario', credits: 5800 };     
-		         this.people=[this.buyer,this.seller];
-		     }
-		     ko.applyBindings(new MyViewModel());        
-		     
-		   	
-		     var testObj=JSON.parse('[ {"title":"xxx",\
-		     							"triggers":[\
-		     							{"description":"xxx",\
-		     							"uri":"meter/thermometer/temp/",\
-		     							"arguments":[ {"key":"30C>=","description":"30"},\
-		     										{"key":"20C>=","description":"20"},\
-		     										{"key":"10C>=","description":"10"},\
-		     										{"key":"0C>=","description":"0"},\
-		     										{"key":"0C<","description":"0"},\
-		     										{"key":"-10C<","description":"10"}\
-		     										]\
-		     							},\
-		     							{"description":"xxx",\
-		     							"uri":"meter/hygrometer/humidity/",\
-		     							"arguments":[ {"key":"50%>=","description":"50%"},\
-		     										{"key":"40%>=","description":"40%"},\
-		     										{"key":"30%>=","description":"30%"},\			 							  {"key":"20%>=","description":"���� 20% �̻� �϶� �˸�"},\
-				 							  		{"key":"10%>=","description":"10%"}\
-				 							]\
-				 						}\
-			 						]\
-			 						},\
-			 						{	"title":"controller",\
-							 			"actions":[\
-							 			{"description":"xxx" , \
-							 			"uri": "meter/themometer/temp/"	,\
-							 			"arguments":[{"key":"27C","description":"27"},	\
-							 						{"key":"25C>=","description":"25"},\
-							 						{"key":"20C>=","description":"0"}\
-							 						]\
-										},\
-							 			{"description":"xxx" ,	\
-							 			"uri":"controller/heater/power/",\
-							 			"arguments":[\
-							 						{"key":"on","description":""},\
-							 						{"key":"off","description":""}\
-							 						]\
-										}\
-									]\
-									}\
-								]' );
-
-/*
- * 
- * it works on crome only that below
- */				
- 
- /*
-				 																										\
-									
-
-			function onInitFs(fs) {
-
-  				fs.root.getFile('log.txt', {}, function(fileEntry) {
-
-    					// Get a File object representing the file,
-    					// then use FileReader to read its contents.
-    					fileEntry.file(function(file) {
-       							var reader = new FileReader();
-       							reader.onloadend = function(e) {
-         						var txtArea = document.createElement('textarea');
-         						txtArea.value = this.result;
-         						document.body.appendChild(txtArea);
-       					};
-
-       			reader.readAsText(file);}, errorHandler);}, errorHandler);
-
-		}
+		<title>M2M Mashup Editor</title>
+		<meta name="author" content="woogi.lee@kt.com" />
 		
-		function errorHandler(){};
+		<link href="css/tripoli.simple.css" type="text/css" rel="stylesheet"/>
+		<link href="css/styles.css" type="text/css" rel="stylesheet"/>
+		
+		<script src="lib/jquery-1.7.2.js" type="text/javascript"></script>
+		<script src="lib/knockout-latest.js" type="text/javascript"></script>
+		<script src="lib/json2.js" type="text/javascript"></script>
+		
+		
+		<style type='text/css'>        	
+	    .editor th { text-align: left }
+	    .editor .grandTotal { border-top: 1px solid silver; padding-top: 0.5em; font-size: 1.2em; }
+	    .editor .grandTotal SPAN { font-weight: bold; }
+	    .editor table, .editor td, .editor th { padding: 0.2em; border-width: 0; margin: 0; vertical-align: top; }
+	    .editor td select { width: 8em; }
+	    .editor td.quantity input { width: 4em; }
+	    .editor td select { height: 1.8em; white-space: nowrap; }
+	    .editor tr.taskDesc input {background-color: #DDD;font-size: 1em; border-style:none}
+	    </style>
+	    
+	</head>
+	
+	<body>
+		
+	<div class="sticker example editor">	
+	<script src="sampleServiceCategories.js" type="text/javascript"></script>
+	<table width='100%'>
+    <thead>
+        <tr>
+            <th width='15%'>If</th>
+            <th width='15%'>This</th>
+            <th width='15%'></th>
+            <th width='15%'>Then</th>
+            <th width='15%'>That</th>
+            <th width='15%'></th>
+            <th width='10%'></th>
+        </tr>
+    </thead>
+    <tbody data-bind='foreach: lines'>
+        <tr>
+            <td>
+                <select data-bind='options: sampleServiceCategories, optionsText: "title", optionsCaption: "Select...", value: svc4Trigger'> </select>
+            </td>
+            <td data-bind="with: svc4Trigger">
+                <select data-bind='options: triggers, optionsText: "title", optionsCaption: "Select...", value: $parent.trigger'> </select>
+            </td>
+            <td data-bind='with: trigger'>
+                <select data-bind='options: arguments, optionsText: "key", optionsCaption: "Select...", value: $parent.triggerArg'> </select>
+            </td>
+            <td >
+                <select data-bind='options: sampleServiceCategories, optionsText: "title", optionsCaption: "Select...", value: svc4Command'> </select>
+            </td>
+            <td data-bind="with: svc4Command">
+                <select data-bind='options: actions, optionsText: "title", optionsCaption: "Select...", value: $parent.command'> </select>
+            </td>
+            <td data-bind='with: command'>
+                <select data-bind='options: arguments, optionsText: "key", optionsCaption: "Select...", value: $parent.commandArg'> </select>
+            </td>
+            <td>
+                <a href='#' data-bind='click: $parent.removeLine'>삭제</a>
+            </td>
+        </tr>
+        <tr class="taskDesc">
+        	<td colspan="3"><input data-bind='visible:triggerArg, value:descTriggerArg'/></td>
+        	<td colspan="3"><input data-bind='visible:commandArg, value:descCommandArg'/></td>
+        	<td></td>
+        </tr>
+    </tbody>
+</table>
 
-		window.requestFileSystem(window.TEMPORARY, 1024*1024, onInitFs, errorHandler);
-*/
-//]]>
-		</script>
+<p class='grandTotal'>
+    
+</p>
+
+<button data-bind='click: addLine'>Add Task</button>
+<button data-bind='click: save'>Submit Tasks</button>
+</div>
+
+
+<script type="text/javascript">
+	
+	//<![CDATA[
+	function formatCurrency(value) {
+		    return "$" + value.toFixed(2);
+	}
+	 
+	var Recipe = function() {
+	    var self = this;
+	    self.svc4Trigger = ko.observable();
+	    self.trigger = ko.observable();
+	    self.triggerArg = ko.observable();
+	    self.svc4Command = ko.observable();
+	    self.command = ko.observable();
+	    self.commandArg = ko.observable();
+	    self.descTriggerArg= ko.observable();
+	    self.descCommandArg= ko.observable();
+	    self.subtotal = ko.computed(function() {
+	        //return self.product() ? self.product().price * parseInt("0" + self.quantity(), 10) : 0;
+	    });
+	 
+	    self.svc4Trigger.subscribe(function() {
+	        self.trigger(undefined);
+	        self.triggerArg(undefined);
+	    });
+	    
+	    self.svc4Command.subscribe(function() {
+	        self.command(undefined);
+	        self.commandArg(undefined);
+	    });
+	    
+	    self.triggerArg.subscribe(function(newVal) {
+	    	self.descTriggerArg=newVal.description;
+	    });
+	    
+	    self.commandArg.subscribe(function(newVal) {
+	    	self.descCommandArg=newVal.description;
+	    });
+	};
+	 
+	var Task = function() {
+	    var self = this;
+	    self.lines = ko.observableArray([new Recipe()]); // Put one line in by default
+	    self.grandTotal = ko.computed(function() {
+	        var total = 0;
+	        $.each(self.lines(), function() { total += this.subtotal() })
+	        return total;
+	    });
+	 
+	    // Operations
+	    self.addLine = function() { self.lines.push(new Recipe()) };
+	    self.removeLine = function(line) { self.lines.remove(line) };
+	    self.save = function() {
+	        var dataToSave = $.map(self.lines(), function(line) {
+	            return line.product() ? {
+	                productName: line.product().name,
+	                quantity: line.quantity()
+	            } : undefined
+	        });
+	        alert("Could now send this to server: " + JSON.stringify(dataToSave));
+	    };
+	};
+	 
+	ko.applyBindings(new Task());    
+			     
+	//]]>
+	</script>
 	</body>
-	</html>
+</html>
 		
