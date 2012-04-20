@@ -1,4 +1,4 @@
-
+﻿
 "serviceList":{
 	"type": "array",
 	"items":{
@@ -53,9 +53,9 @@
 }
 
 
-taskDescription:{
+jobDescription:{
 	"title":{"type":"string"},
-	"recipes":{	"type":"array",
+	"tasks":{	"type":"array",
 				"items":{
 					"type": "object",
 					"properties":{
@@ -102,16 +102,16 @@ e.g.>
 	 			{	"description":"난방 온도 제어" ,
 	 				"uri":,
 	 				"arguments":[ 
-	 							  {"key":"27C","description":"희망 온도를 섭씨 27도로 조정"},
-	 							  {"key":"25C","description":"희망 온도를 섭씨 25도로 조정"},
-	 							  {"key":"20C","description":"희망 온도를 섭씨 20도로 조정"},
+	 							{"key":"high","description":"난방 강도 강으로 조정"},
+		 						{"key":"medium","description":"난방 강도 중으로 조정"},
+		 						{"key":"low","description":"난방 강도 약으로 조정"}
 	 							]
 				},
 	 			{	"description":"난방 전원 제어" ,
 	 				"uri":"controller/heater/power/",
 	 				"arguments":[ 
 	 							  {"key":"on","description":"난방 전원 켜기"},
-	 							  {"key":"off","description":"난방 전원 끄기"},
+	 							  {"key":"off","description":"난방 전원 끄기"}
 	 							]
 				},
 	 							
@@ -121,7 +121,7 @@ e.g.>
 
 {
 	"title":"아기방 쾌적한 환경 만들기",
-	"recipes":[
+	"tasks":[
 		{"description":"습도 맞추기" 
 		"trigger_uri":"meter/hygrometer/humidity/",
 		"trigger_arg":"50%<="

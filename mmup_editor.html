@@ -29,8 +29,8 @@
 	
 	<body>
 		
-	<div class="sticker example editor">	
-	<script src="sampleServiceCategories.js" type="text/javascript"></script>
+	<div class="sticker editor">	
+	<script src="sampleServiceCategories2.js" type="text/javascript"></script>
 	<table width='100%'>
     <thead>
         <tr>
@@ -64,7 +64,7 @@
                 <select data-bind='options: arguments, optionsText: "key", optionsCaption: "Select...", value: $parent.commandArg'> </select>
             </td>
             <td>
-                <a href='#' data-bind='click: $parent.removeLine '>delete</a>
+                <button class="cursor" data-bind='click: $parent.removeLine '>delete</button>
             </td>
         </tr>
         
@@ -81,8 +81,8 @@
     
 </p>
 
-<button data-bind='click: addLine'>Add Task</button>
-<button data-bind='click: save'>Submit Tasks</button>
+<button class="cursor" data-bind='click: addLine'>Add Task</button>
+<button class="cursor" data-bind='click: save'>Submit Tasks</button>
 </div>
 
 
@@ -170,6 +170,8 @@
 	    self.addLine = function() { self.lines.push(new Recipe()) };
 	    self.removeLine = function(line) { self.lines.remove(line) };
 	    self.save = function() {
+	    	
+	    	var jobTitle=window.prompt("enter tasks' description here","");
 	        var dataToSave = $.map(self.lines(), function(line) {
 	            return line? {
 	            	trigger_uri:line.trigger().uri,
@@ -180,7 +182,7 @@
 	            } : undefined
 	        });
 	        
-	        var taskDesc={title:"test!!",recipes:dataToSave};
+	        var taskDesc={title:jobTitle,tasks:dataToSave};
 	        alert("send this to server: " + JSON.stringify(taskDesc));
 	    };
 	}; //:end of Task
