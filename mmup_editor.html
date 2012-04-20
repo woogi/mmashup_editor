@@ -30,7 +30,7 @@
 	<body>
 		
 	<div class="sticker editor">	
-	<script src="sampleServiceCategories2.js" type="text/javascript"></script>
+	<script src="sampleServiceCatalog.js" type="text/javascript"></script>
 	<table width='100%'>
     <thead>
         <tr>
@@ -46,7 +46,7 @@
     <tbody data-bind='foreach: lines'>
         <tr>
             <td>
-                <select data-bind='options: sampleServiceCategories, optionsText: "title", optionsCaption: "Select...", value: svc4Trigger'> </select>
+                <select data-bind='options: sampleServiceCatalog, optionsText: "title", optionsCaption: "Select...", value: svc4Trigger'> </select>
             </td>
             <td data-bind="with: svc4Trigger">
                 <select data-bind='options: triggers, optionsText: "title", optionsCaption: "Select...", value: $parent.trigger'> </select>
@@ -55,7 +55,7 @@
                 <select data-bind='options: arguments, optionsText: "key", optionsCaption: "Select...", value: $parent.triggerArg'> </select>
             </td>
             <td >
-                <select data-bind='options: sampleServiceCategories, optionsText: "title", optionsCaption: "Select...", value: svc4Command'> </select>
+                <select data-bind='options: sampleServiceCatalog, optionsText: "title", optionsCaption: "Select...", value: svc4Command'> </select>
             </td>
             <td data-bind="with: svc4Command">
                 <select data-bind='options: actions, optionsText: "title", optionsCaption: "Select...", value: $parent.command'> </select>
